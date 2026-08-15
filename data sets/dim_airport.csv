@@ -1,0 +1,29 @@
+airport_id,airport_code,city,country,region,is_hub
+1,DXB2,Dubai,UAE,Middle East,TRUE
+2,LHR,London,United Kingdom,Europe,FALSE
+3,CDG,Paris,France,Europe,FALSE
+4,FRA,Frankfurt,Germany,Europe,FALSE
+5,IST,Istanbul,Turkey,Europe,FALSE
+6,MAD,Madrid,Spain,Europe,FALSE
+7,FCO,Rome,Italy,Europe,FALSE
+8,JFK,New York,USA,North America,FALSE
+9,YYZ,Toronto,Canada,North America,FALSE
+10,LAX,Los Angeles,USA,North America,FALSE
+11,BKK,Bangkok,Thailand,Asia,FALSE
+12,SIN,Singapore,Singapore,Asia,FALSE
+13,DEL,Delhi,India,Asia,FALSE
+14,BOM,Mumbai,India,Asia,FALSE
+15,KUL,Kuala Lumpur,Malaysia,Asia,FALSE
+16,MNL,Manila,Philippines,Asia,FALSE
+17,ICN,Seoul,South Korea,Asia,FALSE
+18,CAI,Cairo,Egypt,Middle East,FALSE
+19,JNB,Johannesburg,South Africa,Africa,FALSE
+20,NBO,Nairobi,Kenya,Africa,FALSE
+21,LOS,Lagos,Nigeria,Africa,FALSE
+22,CMN,Casablanca,Morocco,Africa,FALSE
+23,SYD,Sydney,Australia,Oceania,FALSE
+24,MEL,Melbourne,Australia,Oceania,FALSE
+25,AKL,Auckland,New Zealand,Oceania,FALSE
+26,GRU,Sao Paulo,Brazil,South America,FALSE
+27,EZE,Buenos Aires,Argentina,South America,FALSE
+28,AMM,Amman,Jordan,Middle East,FALSE
