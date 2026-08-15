@@ -12,7 +12,7 @@
 
 <br>
 
-![Home Page](assets/screenshots/home.png)
+![Home Page](dashboard/1_Home_page.png)
 
 </div>
 
