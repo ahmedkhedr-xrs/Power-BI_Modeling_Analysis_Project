@@ -35,7 +35,7 @@ The project documents the full journey from that raw, fragmented starting point 
 1. [About This Project](#about)
 2. [The Challenge: Fragmented, Messy Data](#challenge)
 3. [Stage 1 — Power Query: Cleaning & Integration](#power-query)
-4. [Stage 2 — Data Modeling: From Chaos to a Galaxy Schema](#modeling)
+4. [Stage 2 — Data Modeling: From Chaos to a Clean Analytical Schema](#modeling)
 5. [Stage 3 — DAX: Measures & Parameters](#dax)
 6. [Stage 4 — Dashboard Design & Visualization](#dashboard)
 7. [Business Questions This Dashboard Answers](#business-questions)
@@ -83,7 +83,7 @@ With 12 raw extracts on the table, the first job was building an ETL layer that 
 ---
 
 <a name="modeling"></a>
-## 🧱 Stage 2 — Data Modeling: From Chaos to a Galaxy Schema
+## 🧱 Stage 2 — Data Modeling: From Chaos to a Clean Analytical Schema
 
 <div align="center">
 <table>
@@ -98,10 +98,10 @@ With 12 raw extracts on the table, the first job was building an ETL layer that 
 </table>
 </div>
 
-The finished model follows a **Galaxy (Fact Constellation) Schema**: two fact tables — `fact_flights` and `fact_bookings` — share conformed dimensions rather than referencing each other directly, keeping each fact table in a clean star shape of its own rather than snowflaking outward.
+The finished model links `fact_flights` and `fact_bookings` **directly**, through a one-to-many relationship on `flight_id` — every booking traces back to the flight it belongs to, and filtering by flight naturally propagates down to its bookings. On top of this direct link, `dim_date` is the only dimension genuinely **conformed** between the two fact tables, relating to `fact_flights` via `date_id` (flight date) and to `fact_bookings` via `booking_date_id` (booking date). Dimensions like `dim_airport` and `dim_customer` relate to only **one** fact table directly (`fact_flights` and `fact_bookings` respectively) — any analysis that needs, for example, bookings filtered by airport relies on the `flight_id` relationship as a pass-through, not a direct link.
 
 **Modeling decisions worth calling out:**
-- `dim_date` and `dim_airport` each relate to `fact_flights` **twice** (flight date vs. booking date; origin vs. destination airport). Power BI can only auto-activate one relationship per pair — the second is intentionally left **inactive** and resolved explicitly in DAX with `USERELATIONSHIP()` wherever the analysis calls for it.
+- `dim_airport` relates to `fact_flights` **twice** — once via `origin_airport_id`, once via `destination_airport_id`. Power BI can only auto-activate one relationship per table pair — the second is intentionally left **inactive** and resolved explicitly in DAX with `USERELATIONSHIP()` wherever the analysis calls for it.
 - All dimensions are fully denormalized on purpose — `dim_customer` carries loyalty tier name and join date directly, with no separate loyalty lookup table left in the model, avoiding unnecessary snowflaking.
 - A dedicated `route_airport` column resolves "the other end of the route" for any flight, regardless of whether it's outbound or inbound from the hub — built with `LOOKUPVALUE()` specifically because it needed to be **independent of which relationship happens to be active**, something `RELATED()` cannot guarantee.
 
@@ -184,7 +184,7 @@ Customer-centric view: loyalty tier segmentation, booking behavior by tier, nati
 | Area | Tools / Techniques |
 |---|---|
 | **Data Cleaning & ETL** | Power Query — merge, append, locale-aware date parsing, currency string cleanup, categorical standardization, staging query pattern |
-| **Data Modeling** | Star & Galaxy schema design, conformed dimensions, active/inactive relationships, degenerate dimensions |
+| **Data Modeling** | Star schema design, a shared conformed dimension across fact tables, active/inactive relationships, degenerate dimensions |
 | **DAX** | `CALCULATE`, `USERELATIONSHIP`, `LOOKUPVALUE`, `AVERAGEX`, `FILTER`, Field Parameters, disconnected parameter tables |
 | **Visualization** | Custom theme design, bookmark-driven navigation, KPI cards with sparklines, scatter plots, treemaps, dynamic Top-N tables |
 | **Documentation** | Source-system-level data dictionaries, before/after ERD comparisons, full DAX measure catalogs |
