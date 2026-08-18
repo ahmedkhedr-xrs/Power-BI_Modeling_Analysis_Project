@@ -203,7 +203,8 @@ Power-BI_Modeling_Analysis_Project/
 │   ├── 1_Home_page.png
 │   ├── 2_Overview_page.png
 │   ├── 3_Flights_page.png
-│   └── 4_Bookings_page.png
+│   ├── 4_Bookings_page.png
+|   └── Live Demo.gif
 │
 ├── data/
 │   ├── README.md                    ← raw data dictionary & source-system notes
